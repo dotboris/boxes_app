@@ -1,6 +1,7 @@
 package com.github.beraboris.boxes.app;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -41,27 +42,34 @@ public class CanvasView extends View {
 
     public CanvasView(Context context) {
         super(context);
-        init();
+        init(context, null, 0);
     }
 
     public CanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs, 0);
     }
 
-    public CanvasView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init();
+    public CanvasView(Context context, AttributeSet attrs, int style) {
+        super(context, attrs, style);
+        init(context, attrs, style);
     }
 
-    private void init() {
+    private void init(Context context, AttributeSet attrs, int style) {
         path = new Path();
         paint = new Paint(Paint.DITHER_FLAG);
-        paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(20);
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeJoin(Paint.Join.ROUND);
+
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CanvasView, style, 0);
+
+        try {
+            paint.setColor(a.getColor(R.styleable.CanvasView_brushColor, Color.BLACK));
+            paint.setStrokeWidth(a.getDimension(R.styleable.CanvasView_brushWidth, 20));
+        } finally {
+            a.recycle();
+        }
 
         this.setOnTouchListener(touchListener);
     }
