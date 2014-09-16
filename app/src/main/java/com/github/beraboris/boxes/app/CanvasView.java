@@ -17,24 +17,26 @@ public class CanvasView extends View {
     private Bitmap bitmap;
     private Canvas canvas;
 
+    private float canvasX;
+    private float canvasY;
     private float canvasWidth;
     private float canvasHeight;
+
+    private RectF canvasBox;
 
     private OnTouchListener touchListener = new OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent event) {
-            RectF canvasBox = new RectF(canvasX(), canvasY(), canvasX() + canvasWidth, canvasY() + canvasHeight);
-
             if (!canvasBox.contains(event.getX(), event.getY())) {
                 return false;
             }
 
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    path.moveTo(event.getX() - canvasX(), event.getY() - canvasY());
+                    path.moveTo(event.getX() - canvasX, event.getY() - canvasY);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    path.lineTo(event.getX() - canvasX(), event.getY() - canvasY());
+                    path.lineTo(event.getX() - canvasX, event.getY() - canvasY);
                     break;
                 case MotionEvent.ACTION_UP:
                     canvas.drawPath(path, paint);
@@ -103,21 +105,24 @@ public class CanvasView extends View {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        canvasX = (w / 2) - canvasWidth / 2;
+        canvasY = (h / 2) - canvasHeight / 2;
+
+        canvasBox = new RectF(canvasX, canvasY, canvasX + canvasWidth, canvasY + canvasHeight);
+
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.translate(canvasX(), canvasY());
+        canvas.clipRect(canvasBox);
 
+        canvas.translate(canvasX, canvasY);
         canvas.drawBitmap(this.bitmap, 0, 0, paint);
         canvas.drawPath(path, paint);
-    }
-
-    private float canvasY() {
-        return (getHeight() / 2) - canvasHeight / 2;
-    }
-
-    private float canvasX() {
-        return (getWidth() / 2) - canvasWidth / 2;
     }
 
     public int getBrushColor() {
