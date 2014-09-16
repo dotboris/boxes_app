@@ -90,4 +90,20 @@ public class CanvasView extends View {
         canvas.drawPath(path, paint);
     }
 
+    public int getBrushColor() {
+        return paint.getColor();
+    }
+
+    public void setBrushColor(int color) {
+        paint.setColor(color);
+    }
+
+    public float getBrushSize() {
+        return paint.getStrokeWidth();
+    }
+
+    public void setBrushSize(float size) {
+        paint.setStrokeWidth(size);
+    }
+
 }
