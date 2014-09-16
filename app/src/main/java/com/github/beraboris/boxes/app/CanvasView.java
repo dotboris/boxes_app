@@ -63,8 +63,8 @@ public class CanvasView extends View {
     }
 
     private void init(Context context, AttributeSet attrs, int style) {
-        canvasWidth = 300;
-        canvasHeight = 300;
+        canvasWidth = 640;
+        canvasHeight = 480;
         int brushColor = Color.BLACK;
         float brushWidth = 20;
 
