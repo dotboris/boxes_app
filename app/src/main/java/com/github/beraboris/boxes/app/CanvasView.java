@@ -27,10 +27,6 @@ public class CanvasView extends View {
     private OnTouchListener touchListener = new OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent event) {
-            if (!canvasBox.contains(event.getX(), event.getY())) {
-                return false;
-            }
-
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     path.moveTo(event.getX() - canvasX, event.getY() - canvasY);
