@@ -2,5 +2,10 @@
 <resources>
 
     <string name="app_name">Boxes</string>
+    <string name="drawing_view_original">View original image</string>
+    <string name="drawing_pick_color">Select brush color</string>
+    <string name="drawing_pick_size">Select brush size</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
 
 </resources>
