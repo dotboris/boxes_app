@@ -6,6 +6,7 @@
     tools:context="com.github.beraboris.boxes.app.ColorWheelDialogFragment">
 
     <com.github.beraboris.boxes.app.HueSaturationWheelView
+            android:id="@+id/hue_saturation_wheel"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
 

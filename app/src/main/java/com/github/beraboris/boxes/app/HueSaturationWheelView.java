@@ -3,6 +3,7 @@ package com.github.beraboris.boxes.app;
 import android.content.Context;
 import android.graphics.*;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -12,28 +13,77 @@ import android.view.View;
  * HSV color.
  */
 public class HueSaturationWheelView extends View {
+    public void setHueSaturationChangeListener(OnHueSaturationChangeListener hueSaturationChangeListener) {
+        this.hueSaturationChangeListener = hueSaturationChangeListener;
+    }
+
+    public interface OnHueSaturationChangeListener {
+        void onHueSaturationChange(double hue, double saturation);
+    }
+
+    private OnTouchListener touchListener = new OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent e) {
+            if (hueSaturationChangeListener == null) {
+                return false;
+            }
+
+            switch (e.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
+                    float distx = e.getX() - midX;
+                    float disty = e.getY() - midY;
+                    double dist = Math.sqrt(Math.pow(distx, 2) + Math.pow(disty, 2));
+
+                    if (dist <= diameter / 2) {
+                        double angle = Math.toDegrees(Math.atan2(disty / dist, distx / dist));
+                        if (angle < 0)
+                            angle = 360 + angle;
+
+                        hueSaturationChangeListener.onHueSaturationChange(angle, dist / (diameter / 2));
+
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                default:
+                    return false;
+            }
+        }
+    };
+
+    private OnHueSaturationChangeListener hueSaturationChangeListener;
+
     private Paint paint;
-    private float smallestDim;
+    private float diameter;
     private float midY;
     private float midX;
 
     public HueSaturationWheelView(Context context) {
         super(context);
+        init();
     }
 
     public HueSaturationWheelView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public HueSaturationWheelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
+        setOnTouchListener(touchListener);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         midX = w / 2;
         midY = h / 2;
-        smallestDim = Math.min(w, h);
+        diameter = Math.min(w, h);
 
         updatePaint();
 
@@ -41,7 +91,7 @@ public class HueSaturationWheelView extends View {
     }
 
     private void updatePaint() {
-        RadialGradient saturationGradiant = new RadialGradient(midX, midY, smallestDim / 2,
+        RadialGradient saturationGradiant = new RadialGradient(midX, midY, diameter / 2,
                 0xFFFFFFFF, 0x00FFFFFF, Shader.TileMode.CLAMP);
 
         int[] keyColors = new int[13];
@@ -65,6 +115,6 @@ public class HueSaturationWheelView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawCircle(midX, midY, smallestDim / 2, paint);
+        canvas.drawCircle(midX, midY, diameter / 2, paint);
     }
 }
