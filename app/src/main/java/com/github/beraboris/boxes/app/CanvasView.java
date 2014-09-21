@@ -65,7 +65,7 @@ public class CanvasView extends View {
     private void init(Context context, AttributeSet attrs, int style) {
         canvasWidth = 640;
         canvasHeight = 480;
-        int brushColor = Color.BLACK;
+        int brushColor = Color.BLUE;
         float brushWidth = 20;
 
         if (attrs != null) {
