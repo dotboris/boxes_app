@@ -60,6 +60,8 @@ public class HueSaturationWheelView extends View {
     private float midY;
     private float midX;
 
+    private float value;
+
     public HueSaturationWheelView(Context context) {
         super(context);
         init();
@@ -76,6 +78,8 @@ public class HueSaturationWheelView extends View {
     }
 
     private void init() {
+        value = 1;
+
         setOnTouchListener(touchListener);
     }
 
@@ -91,8 +95,9 @@ public class HueSaturationWheelView extends View {
     }
 
     private void updatePaint() {
+        float[] saturationHsv = {0, 0, value};
         RadialGradient saturationGradiant = new RadialGradient(midX, midY, diameter / 2,
-                0xFFFFFFFF, 0x00FFFFFF, Shader.TileMode.CLAMP);
+                Color.HSVToColor(255, saturationHsv), Color.HSVToColor(0, saturationHsv), Shader.TileMode.CLAMP);
 
         int[] keyColors = new int[13];
         for (int i = 0; i < 12; i++) {
@@ -116,5 +121,10 @@ public class HueSaturationWheelView extends View {
         super.onDraw(canvas);
 
         canvas.drawCircle(midX, midY, diameter / 2, paint);
+    }
+
+    public void setValue(float value) {
+        this.value = value;
+        invalidate();
     }
 }
