@@ -45,7 +45,7 @@ public class ColorWheelDialogFragment extends DialogFragment {
 
         builder.setView(layout);
 
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (onColorSelectedListener != null) {
@@ -54,7 +54,7 @@ public class ColorWheelDialogFragment extends DialogFragment {
             }
         });
 
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
             }

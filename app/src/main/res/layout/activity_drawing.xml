@@ -45,7 +45,7 @@
                 android:id="@+id/cancel_btn"
                 style="@style/drawing_control"
                 android:src="@drawable/x"
-                android:contentDescription="@string/cancel"
+                android:contentDescription="@android:string/cancel"
                 android:background="@null"/>
         <ImageButton
                 android:id="@+id/submit_btn"
