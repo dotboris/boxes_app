@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="@color/drawable_nodraw"
-    tools:context="com.github.beraboris.boxes.app.DrawingActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:background="@color/drawable_nodraw"
+              tools:context="com.github.beraboris.boxes.app.DrawingActivity">
 
     <com.github.beraboris.boxes.app.CanvasView
             android:id="@+id/canvas"
@@ -29,24 +29,28 @@
                 android:src="@drawable/image"
                 android:contentDescription="@string/drawing_view_original"
                 android:background="@null"/>
+
         <ImageButton
                 android:id="@+id/pick_color_btn"
                 style="@style/drawing_control"
                 android:src="@drawable/droplet"
                 android:contentDescription="@string/drawing_pick_color"
                 android:background="@null"/>
+
         <ImageButton
                 android:id="@+id/pick_brush_btn"
                 style="@style/drawing_control"
                 android:src="@drawable/brush"
                 android:contentDescription="@string/drawing_pick_size"
                 android:background="@null"/>
+
         <ImageButton
                 android:id="@+id/cancel_btn"
                 style="@style/drawing_control"
                 android:src="@drawable/x"
                 android:contentDescription="@android:string/cancel"
                 android:background="@null"/>
+
         <ImageButton
                 android:id="@+id/submit_btn"
                 style="@style/drawing_control"
