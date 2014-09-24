@@ -8,15 +8,11 @@ import android.view.View;
 
 /**
  * A wheel used to pick a color through color and saturation.
- *
+ * <p/>
  * Hue and saturation is used to pick a HSV color. This needs to be combined with a Value slider/picker to get a full
  * HSV color.
  */
 public class HueSaturationWheelView extends View {
-    public void setHueSaturationChangeListener(OnHueSaturationChangeListener hueSaturationChangeListener) {
-        this.hueSaturationChangeListener = hueSaturationChangeListener;
-    }
-
     public interface OnHueSaturationChangeListener {
         void onHueSaturationChange(double hue, double saturation);
     }
@@ -56,10 +52,10 @@ public class HueSaturationWheelView extends View {
     private OnHueSaturationChangeListener hueSaturationChangeListener;
 
     private Paint paint;
+
     private float diameter;
     private float midY;
     private float midX;
-
     private float value;
 
     public HueSaturationWheelView(Context context) {
@@ -123,8 +119,24 @@ public class HueSaturationWheelView extends View {
         canvas.drawCircle(midX, midY, diameter / 2, paint);
     }
 
+    /**
+     * Set the value without forcing a re render
+     */
     public void setValue(float value) {
         this.value = value;
+    }
+
+    /**
+     * Sets the value for the wheel triggering events forcing the wheel to render again
+     */
+    public void uddateValue(float value) {
+        this.value = value;
+
+        updatePaint();
         invalidate();
+    }
+
+    public void setHueSaturationChangeListener(OnHueSaturationChangeListener hueSaturationChangeListener) {
+        this.hueSaturationChangeListener = hueSaturationChangeListener;
     }
 }
