@@ -71,12 +71,7 @@ public class ColorWheelDialogFragment extends DialogFragment {
                 }
             }
         });
-
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
+        builder.setNegativeButton(android.R.string.cancel, null);
 
         return builder.create();
     }
