@@ -13,11 +13,11 @@
             android:id="@+id/hue_saturation_wheel"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="90"/>
+            android:layout_weight="80"/>
     <com.github.beraboris.boxes.app.ValueSliderView
             android:id="@+id/value_slider"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_weight="10"
+            android:layout_weight="20"
             android:layout_width="0dp"
             android:layout_height="fill_parent"/>
 </LinearLayout>
