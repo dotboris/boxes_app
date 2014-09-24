@@ -24,6 +24,14 @@ public class DrawingActivity extends Activity {
                 showColorWheelDialog();
             }
         });
+
+        ImageButton brushSizeButton = (ImageButton) findViewById(R.id.pick_brush_btn);
+        brushSizeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showBrushSizeDialog();
+            }
+        });
     }
 
     private void showColorWheelDialog() {
@@ -36,6 +44,17 @@ public class DrawingActivity extends Activity {
         });
 
         dialog.show(getFragmentManager(), "ColorWheelDialogFragment");
+    }
+
+    private void showBrushSizeDialog() {
+        BrushSizeDialogFragment dialog = new BrushSizeDialogFragment(2, 100, (int) canvas.getBrushSize());
+        dialog.setOnBrushSizeSelectedListener(new BrushSizeDialogFragment.OnBrushSizeSelectedListener() {
+            @Override
+            public void onBrushSizeSelected(int size) {
+                canvas.setBrushSize(size);
+            }
+        });
+        dialog.show(getFragmentManager(), "BrushSizeDialogFragment");
     }
 
     @Override
