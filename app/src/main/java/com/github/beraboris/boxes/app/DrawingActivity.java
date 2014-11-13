@@ -47,7 +47,7 @@ public class DrawingActivity extends Activity {
     }
 
     private void showBrushSizeDialog() {
-        BrushSizeDialogFragment dialog = new BrushSizeDialogFragment(2, 100, (int) canvas.getBrushSize());
+        BrushSizeDialogFragment dialog = BrushSizeDialogFragment.newInstance(2, 100, (int) canvas.getBrushSize());
         dialog.setOnBrushSizeSelectedListener(new BrushSizeDialogFragment.OnBrushSizeSelectedListener() {
             @Override
             public void onBrushSizeSelected(int size) {

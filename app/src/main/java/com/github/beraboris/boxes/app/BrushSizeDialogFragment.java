@@ -15,6 +15,11 @@ import android.widget.TextView;
  * Dialog used to pick a brush size
  */
 public class BrushSizeDialogFragment extends DialogFragment {
+
+    public static final String FROM_ARG = "from";
+    public static final String TO_ARG = "to";
+    public static final String CURRENT_ARG = "current";
+
     public interface OnBrushSizeSelectedListener {
         void onBrushSizeSelected(int size);
     }
@@ -27,10 +32,25 @@ public class BrushSizeDialogFragment extends DialogFragment {
     private int to;
     private int size;
 
-    public BrushSizeDialogFragment(int from, int to, int current) {
-        this.from = from;
-        this.to = to;
-        this.size = current;
+    public static BrushSizeDialogFragment newInstance(int from, int to, int current) {
+        BrushSizeDialogFragment fragment = new BrushSizeDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putInt(FROM_ARG, from);
+        args.putInt(TO_ARG, to);
+        args.putInt(CURRENT_ARG, current);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    @Override
+    public void setArguments(Bundle args) {
+        super.setArguments(args);
+
+        from = args.getInt(FROM_ARG, 1);
+        to = args.getInt(TO_ARG, 100);
+        size = args.getInt(CURRENT_ARG, 20);
     }
 
     @SuppressLint("InflateParams")
