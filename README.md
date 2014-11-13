@@ -1,6 +1,8 @@
 Boxes
 =====
 
+[![Build Status](https://travis-ci.org/beraboris/boxes_app.svg)](https://travis-ci.org/beraboris/boxes_app)
+
 Boxes is a collaborative drawing app. Here's how it works: 
 
 A picture gets ingested into a server system and cut up into pieces. App users can grab these image pieces and redraw
