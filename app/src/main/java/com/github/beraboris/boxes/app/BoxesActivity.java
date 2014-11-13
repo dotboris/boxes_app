@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.github.beraboris.boxes.app.settings.SettingsActivity;
 
 
 public class BoxesActivity extends Activity {
@@ -27,7 +28,7 @@ public class BoxesActivity extends Activity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
-                // TODO: start the settings
+                openSettingsActivity();
                 return true;
             case R.id.action_draw:
                 openDrawingActivity();
@@ -35,6 +36,10 @@ public class BoxesActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openSettingsActivity() {
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
     private void openDrawingActivity() {

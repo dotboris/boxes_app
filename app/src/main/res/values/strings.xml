@@ -9,5 +9,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_draw">New drawing</string>
+    <string name="pref_drivethrough_url">Drive through service url</string>
+    <string name="pref_drivethrough_url_default">http://localhost:8080</string>
 
 </resources>
