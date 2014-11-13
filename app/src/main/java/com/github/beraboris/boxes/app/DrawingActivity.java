@@ -35,7 +35,7 @@ public class DrawingActivity extends Activity {
     }
 
     private void showColorWheelDialog() {
-        ColorWheelDialogFragment dialog = new ColorWheelDialogFragment(canvas.getBrushColor());
+        ColorWheelDialogFragment dialog = ColorWheelDialogFragment.newInstance(canvas.getBrushColor());
         dialog.setOnColorSelectedListener(new ColorWheelDialogFragment.OnColorSelectedListener() {
             @Override
             public void onColorSelected(int color) {

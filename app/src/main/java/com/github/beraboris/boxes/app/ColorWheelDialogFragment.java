@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 public class ColorWheelDialogFragment extends DialogFragment {
+    public static final String START_COLOR_ARG_KEY = "startColor";
+
     private HueSaturationWheelView wheel;
     private ValueSliderView slider;
 
@@ -22,7 +24,20 @@ public class ColorWheelDialogFragment extends DialogFragment {
     private OnColorSelectedListener onColorSelectedListener;
     private float[] hsv;
 
-    public ColorWheelDialogFragment(int startColor) {
+    public static ColorWheelDialogFragment newInstance(int startColor) {
+        ColorWheelDialogFragment fragment = new ColorWheelDialogFragment();
+        Bundle args = new Bundle();
+        args.putInt(START_COLOR_ARG_KEY, startColor);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    @Override
+    public void setArguments(Bundle args) {
+        super.setArguments(args);
+
+        int startColor = args.getInt(START_COLOR_ARG_KEY);
         hsv = new float[3];
         Color.colorToHSV(startColor, hsv);
     }
