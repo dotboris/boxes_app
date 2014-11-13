@@ -1,4 +1,4 @@
-package com.github.beraboris.boxes.app;
+package com.github.beraboris.boxes.app.drawing;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,6 +6,7 @@ import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import com.github.beraboris.boxes.app.R;
 
 
 /**

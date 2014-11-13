@@ -1,4 +1,4 @@
-package com.github.beraboris.boxes.app;
+package com.github.beraboris.boxes.app.drawing;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import com.github.beraboris.boxes.app.R;
 
 /**
  * Dialog used to pick a brush size

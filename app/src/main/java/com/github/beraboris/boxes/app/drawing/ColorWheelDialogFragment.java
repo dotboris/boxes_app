@@ -1,4 +1,4 @@
-package com.github.beraboris.boxes.app;
+package com.github.beraboris.boxes.app.drawing;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import com.github.beraboris.boxes.app.R;
 
 public class ColorWheelDialogFragment extends DialogFragment {
     public static final String START_COLOR_ARG_KEY = "startColor";

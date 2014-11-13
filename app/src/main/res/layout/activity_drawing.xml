@@ -4,9 +4,9 @@
               android:layout_height="match_parent"
               android:orientation="horizontal"
               android:background="@color/drawable_nodraw"
-              tools:context="com.github.beraboris.boxes.app.DrawingActivity">
+              tools:context="com.github.beraboris.boxes.app.drawing.DrawingActivity">
 
-    <com.github.beraboris.boxes.app.CanvasView
+    <com.github.beraboris.boxes.app.drawing.CanvasView
             android:id="@+id/canvas"
             android:layout_width="0dp"
             android:layout_height="fill_parent"

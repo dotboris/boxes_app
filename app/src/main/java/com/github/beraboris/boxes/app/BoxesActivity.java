@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.github.beraboris.boxes.app.drawing.DrawingActivity;
 import com.github.beraboris.boxes.app.settings.SettingsActivity;
 
 

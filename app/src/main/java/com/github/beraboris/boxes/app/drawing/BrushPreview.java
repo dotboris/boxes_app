@@ -1,4 +1,4 @@
-package com.github.beraboris.boxes.app;
+package com.github.beraboris.boxes.app.drawing;
 
 import android.content.Context;
 import android.graphics.Canvas;
