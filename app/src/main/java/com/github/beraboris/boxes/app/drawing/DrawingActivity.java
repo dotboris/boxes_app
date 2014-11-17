@@ -1,20 +1,44 @@
 package com.github.beraboris.boxes.app.drawing;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import com.github.beraboris.boxes.app.R;
+import com.github.beraboris.boxes.app.clients.DriveThroughClient;
+import com.github.beraboris.boxes.app.clients.Slice;
 
 
 public class DrawingActivity extends Activity {
+    private class GetSliceTask extends AsyncTask<DriveThroughClient, Void, Slice> {
+        @Override
+        protected Slice doInBackground(DriveThroughClient... clients) {
+            return clients[0].getSlice();
+        }
+
+        @Override
+        protected void onPostExecute(Slice s) {
+            slice = s;
+            Toast.makeText(DrawingActivity.this, "Loaded slice", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private CanvasView canvas;
+    private DriveThroughClient client;
+    private Slice slice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
+
+        client = createDrivethroughClient();
+        new GetSliceTask().execute(client);
 
         canvas = (CanvasView) findViewById(R.id.canvas);
 
@@ -33,6 +57,13 @@ public class DrawingActivity extends Activity {
                 showBrushSizeDialog();
             }
         });
+    }
+
+    private DriveThroughClient createDrivethroughClient() {
+        String url = PreferenceManager.getDefaultSharedPreferences(this)
+                .getString("pref_drivethrough_url", "http://localhost:8080");
+
+        return new DriveThroughClient(url);
     }
 
     private void showColorWheelDialog() {
