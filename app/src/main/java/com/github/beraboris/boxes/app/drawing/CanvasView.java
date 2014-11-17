@@ -47,6 +47,8 @@ public class CanvasView extends View {
             return true;
         }
     };
+    private int brushColor;
+    private float brushWidth;
 
     public CanvasView(Context context) {
         super(context);
@@ -66,8 +68,8 @@ public class CanvasView extends View {
     private void init(Context context, AttributeSet attrs, int style) {
         canvasWidth = 640;
         canvasHeight = 480;
-        int brushColor = Color.BLACK;
-        float brushWidth = 20;
+        brushColor = Color.BLACK;
+        brushWidth = 20;
 
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CanvasView, style, 0);
@@ -83,6 +85,12 @@ public class CanvasView extends View {
             }
         }
 
+        createDrawingComponents();
+
+        this.setOnTouchListener(touchListener);
+    }
+
+    private void createDrawingComponents() {
         bitmap = Bitmap.createBitmap(
                 (int) Math.ceil(canvasWidth),
                 (int) Math.ceil(canvasHeight),
@@ -97,18 +105,28 @@ public class CanvasView extends View {
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setColor(brushColor);
         paint.setStrokeWidth(brushWidth);
+    }
 
-        this.setOnTouchListener(touchListener);
+    public void resize(int width, int height) {
+        canvasWidth = width;
+        canvasHeight = height;
+        createDrawingComponents();
+        calculateCanvasOrigin(getWidth(), getHeight());
+        invalidate();
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        canvasX = (w / 2) - canvasWidth / 2;
-        canvasY = (h / 2) - canvasHeight / 2;
+        calculateCanvasOrigin(w, h);
 
         canvasBox = new RectF(canvasX, canvasY, canvasX + canvasWidth, canvasY + canvasHeight);
 
         super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    private void calculateCanvasOrigin(int w, int h) {
+        canvasX = (w / 2) - canvasWidth / 2;
+        canvasY = (h / 2) - canvasHeight / 2;
     }
 
     @Override

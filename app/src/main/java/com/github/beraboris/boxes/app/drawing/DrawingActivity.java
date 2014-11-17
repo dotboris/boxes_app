@@ -31,6 +31,7 @@ public class DrawingActivity extends Activity {
         protected void onPostExecute(Slice s) {
             if (exception == null) {
                 slice = s;
+                resizeCanvas();
                 Toast.makeText(DrawingActivity.this,
                         "Loaded slice", Toast.LENGTH_SHORT).show();
             } else {
@@ -41,9 +42,9 @@ public class DrawingActivity extends Activity {
     }
 
     private CanvasView canvas;
+
     private DriveThroughClient client;
     private Slice slice;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,10 @@ public class DrawingActivity extends Activity {
                 showPreviewDialog();
             }
         });
+    }
+
+    private void resizeCanvas() {
+        canvas.resize(slice.getImage().getWidth(), slice.getImage().getHeight());
     }
 
     private DriveThroughClient createDriveThroughClient() {
