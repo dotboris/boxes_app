@@ -156,4 +156,7 @@ public class CanvasView extends View {
         paint.setStrokeWidth(size);
     }
 
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
 }

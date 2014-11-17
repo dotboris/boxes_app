@@ -1,9 +1,11 @@
 package com.github.beraboris.boxes.app.drawing;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -13,15 +15,21 @@ import com.github.beraboris.boxes.app.clients.Slice;
 
 
 public class DrawingActivity extends Activity {
-    private class GetSliceTask extends AsyncTask<DriveThroughClient, Void, Slice> {
+    private class GetSliceTask extends AsyncTask<Void, Void, Slice> {
         private Throwable exception;
+        private DriveThroughClient client;
+
+        private GetSliceTask(DriveThroughClient client) {
+            this.client = client;
+        }
 
         @Override
-        protected Slice doInBackground(DriveThroughClient... clients) {
+        protected Slice doInBackground(Void... args) {
             try {
-                return clients[0].getSlice();
+                return client.getSlice();
             } catch (RuntimeException e) {
                 exception = e;
+                Log.e("boxes", "failed to get slice", e);
             }
 
             return null;
@@ -41,6 +49,42 @@ public class DrawingActivity extends Activity {
         }
     }
 
+    private class PushDrawingTask extends AsyncTask<Void, Void, Void> {
+
+        private boolean failed;
+        private Slice slice;
+        private Bitmap drawing;
+        private DriveThroughClient client;
+
+        private PushDrawingTask(DriveThroughClient client, Slice slice, Bitmap drawing) {
+            this.slice = slice;
+            this.drawing = drawing;
+            this.client = client;
+            this.failed = false;
+        }
+
+        @Override
+        protected Void doInBackground(Void... args) {
+            try {
+                client.putDrawing(slice.getQueue(), slice.getId(), drawing);
+            } catch (RuntimeException e) {
+                Log.e("boxes", "failed to put drawings", e);
+                failed = true;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (failed) {
+                Toast.makeText(DrawingActivity.this, "Failed to send drawing", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(DrawingActivity.this, "Sent drawing", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private CanvasView canvas;
 
     private DriveThroughClient client;
@@ -51,7 +95,7 @@ public class DrawingActivity extends Activity {
         setContentView(R.layout.activity_drawing);
 
         client = createDriveThroughClient();
-        new GetSliceTask().execute(client);
+        new GetSliceTask(client).execute();
 
         canvas = (CanvasView) findViewById(R.id.canvas);
 
@@ -73,6 +117,13 @@ public class DrawingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 showPreviewDialog();
+            }
+        });
+
+        findViewById(R.id.submit_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new PushDrawingTask(client, slice, canvas.getBitmap()).execute();
             }
         });
     }
