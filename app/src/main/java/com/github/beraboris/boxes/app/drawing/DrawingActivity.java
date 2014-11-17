@@ -55,19 +55,24 @@ public class DrawingActivity extends Activity {
 
         canvas = (CanvasView) findViewById(R.id.canvas);
 
-        ImageButton colorWheelButton = (ImageButton) findViewById(R.id.pick_color_btn);
-        colorWheelButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.pick_color_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showColorWheelDialog();
             }
         });
 
-        ImageButton brushSizeButton = (ImageButton) findViewById(R.id.pick_brush_btn);
-        brushSizeButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.pick_brush_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showBrushSizeDialog();
+            }
+        });
+
+        findViewById(R.id.other_picture_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPreviewDialog();
             }
         });
     }
@@ -100,6 +105,11 @@ public class DrawingActivity extends Activity {
             }
         });
         dialog.show(getFragmentManager(), "BrushSizeDialogFragment");
+    }
+
+    private void showPreviewDialog() {
+        PreviewDialogFragment dialog = PreviewDialogFragment.newInstance(slice.getImage());
+        dialog.show(getFragmentManager(), "PreviewDialogFragment");
     }
 
     @Override
