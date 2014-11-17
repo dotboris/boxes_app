@@ -1,7 +1,6 @@
 package com.github.beraboris.boxes.app.drawing;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,15 +15,29 @@ import com.github.beraboris.boxes.app.clients.Slice;
 
 public class DrawingActivity extends Activity {
     private class GetSliceTask extends AsyncTask<DriveThroughClient, Void, Slice> {
+        private Throwable exception;
+
         @Override
         protected Slice doInBackground(DriveThroughClient... clients) {
-            return clients[0].getSlice();
+            try {
+                return clients[0].getSlice();
+            } catch (RuntimeException e) {
+                exception = e;
+            }
+
+            return null;
         }
 
         @Override
         protected void onPostExecute(Slice s) {
-            slice = s;
-            Toast.makeText(DrawingActivity.this, "Loaded slice", Toast.LENGTH_SHORT).show();
+            if (exception == null) {
+                slice = s;
+                Toast.makeText(DrawingActivity.this,
+                        "Loaded slice", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(DrawingActivity.this,
+                        "Failed to load slice " + exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
