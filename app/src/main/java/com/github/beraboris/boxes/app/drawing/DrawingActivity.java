@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 import com.github.beraboris.boxes.app.R;
 import com.github.beraboris.boxes.app.clients.DriveThroughClient;
@@ -50,7 +49,7 @@ public class DrawingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
 
-        client = createDrivethroughClient();
+        client = createDriveThroughClient();
         new GetSliceTask().execute(client);
 
         canvas = (CanvasView) findViewById(R.id.canvas);
@@ -77,7 +76,7 @@ public class DrawingActivity extends Activity {
         });
     }
 
-    private DriveThroughClient createDrivethroughClient() {
+    private DriveThroughClient createDriveThroughClient() {
         String url = PreferenceManager.getDefaultSharedPreferences(this)
                 .getString("pref_drivethrough_url", "http://localhost:8080");
 
