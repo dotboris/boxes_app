@@ -124,6 +124,14 @@ public class DrawingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 new PushDrawingTask(client, slice, canvas.getBitmap()).execute();
+                finish();
+            }
+        });
+
+        findViewById(R.id.cancel_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
