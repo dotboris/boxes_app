@@ -4,4 +4,8 @@
         android:key="pref_drivethrough_url"
         android:title="@string/pref_drivethrough_url"
         android:defaultValue="@string/pref_drivethrough_url_default" />
+    <EditTextPreference
+        android:key="pref_gallery_url"
+        android:title="@string/pref_gallery_url"
+        android:defaultValue="@string/pref_gallery_url_default" />
 </PreferenceScreen>

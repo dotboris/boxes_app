@@ -27,6 +27,7 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/action_settings"/>
+        <activity android:name=".ShowDrawingActivity"/>
     </application>
 
 </manifest>

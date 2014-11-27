@@ -10,4 +10,9 @@
         android:title="@string/action_draw"
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_refresh_gallery"
+          android:title="@string/action_refresh"
+          android:icon="@android:drawable/ic_popup_sync"
+          android:showAsAction="ifRoom"/>
 </menu>
