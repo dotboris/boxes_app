@@ -1,10 +1,11 @@
-Boxes
-=====
+Boxes App
+=========
 
 [![Build Status](https://travis-ci.org/beraboris/boxes_app.svg)](https://travis-ci.org/beraboris/boxes_app)
 
-Boxes is a collaborative drawing app. Here's how it works: 
+This is the client portion of a collaborative drawing app called Boxes. This is an Android application.
 
-A picture gets ingested into a server system and cut up into pieces. App users can grab these image pieces and redraw
-them on their Android device. These pieces and sent back to the server where they are glued together with other pieces
-redrawn by other users. These collages of redrawn pieces are made available for all users to see.
+Boxes is a school project and is meant to be more of a proof of concept than anything else. This is, of course, not
+meant for production.
+
+For this app to work, you'll need to have the [server](https://github.com/beraboris/boxes_server) up and running.
